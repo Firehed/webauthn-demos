@@ -19,7 +19,6 @@ final class Version20220906171418 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // $this->addSql('asdf');
         $users = $schema->createTable('users');
 
         $users->addColumn('id', 'string');
