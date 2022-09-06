@@ -9,4 +9,6 @@ return [
     App\Middlewares\CORSMiddleware::class,
     App\Middlewares\JsonBodyParserMiddleware::class,
     App\Middlewares\ErrorHandlingMiddleware::class,
+
+    App\Context::class,
 ];
