@@ -16,7 +16,7 @@ class CORSMiddleware implements MiddlewareInterface
     {
         if ($request->getMethod() === 'OPTIONS') {
             return (new Response(204))
-                ->withHeader('Access-control-allow-headers', 'Content-type')
+                ->withHeader('Access-control-allow-headers', 'Content-type, Authorization')
                 ->withHeader('Access-control-allow-origin', '*');
         }
         return $handler->handle($request)

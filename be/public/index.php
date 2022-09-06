@@ -15,6 +15,7 @@ $c = require 'config.php';
 $app = AppFactory::create(container: $c);
 // Middleware is LIFO
 $app->add($c->get(App\Middlewares\JsonBodyParserMiddleware::class));
+$app->add($c->get(App\Middlewares\AuthenticatingMiddleware::class));
 $app->add($c->get(App\Middlewares\ErrorHandlingMiddleware::class));
 $app->add($c->get(App\Middlewares\CORSMiddleware::class));
 $app->add($c->get(App\Middlewares\AccessLogMiddleware::class));
