@@ -1,0 +1,7 @@
+{
+    "require": {
+        "firehed/webauthn": "dev-main",
+        "slim/slim": "^4.10",
+        "slim/psr7": "^1.5"
+    }
+}
