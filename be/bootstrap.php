@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 chdir(__DIR__);
+
+require 'vendor/autoload.php';
+
 date_default_timezone_set('UTC');
 ini_set('display_errors', '0');
 ini_set('display_startup_errors', '0');
@@ -31,8 +34,6 @@ set_error_handler(function (int $severity, string $message, string $file, int $l
     }
     return false;
 }, E_ALL);
-
-require 'vendor/autoload.php';
 
 if (file_exists(__DIR__ . '/.env')) {
     // unsafe: uses .env to putenv() the values to getenv() and the superglobals
