@@ -1,7 +1,54 @@
 {
     "require": {
+        "php": "^8.1",
+        "doctrine/migrations": "^3.5",
+        "doctrine/orm": "^2.13",
+        "firehed/container": "^0.5.2",
+        "firehed/simplelogger": "^2.4",
         "firehed/webauthn": "dev-main",
+        "ramsey/uuid": "^4.4",
+        "slim/psr7": "^1.5",
         "slim/slim": "^4.10",
-        "slim/psr7": "^1.5"
+        "symfony/cache": "^6.1",
+        "symfony/console": "^6.1"
+    },
+    "require-dev": {
+        "maglnet/composer-require-checker": "^4.1",
+        "mheap/phpunit-github-actions-printer": "^1.5",
+        "nikic/php-parser": "^4.14",
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.0",
+        "phpunit/phpunit": "^9.3",
+        "squizlabs/php_codesniffer": "^3.5",
+        "vlucas/phpdotenv": "^5.4"
+    },
+    "scripts": {
+        "test": [
+            "@phpunit",
+            "@phpstan",
+            "@phpcs"
+        ],
+        "autofix": "phpcbf",
+        "phpunit": "phpunit",
+        "phpstan": "phpstan analyse",
+        "phpstan-baseline": "phpstan analyse --generate-baseline",
+        "phpcs": "phpcs"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "files": [
+        ],
+        "psr-4": {
+            "App\\": "tests"
+        }
     }
 }
