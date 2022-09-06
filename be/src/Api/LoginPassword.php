@@ -22,6 +22,8 @@ class LoginPassword
 
     public function handle(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
+        session_start();
+
         $body = $request->getParsedBody();
 
         $user = $this->em->getRepository(User::class)
@@ -34,6 +36,7 @@ class LoginPassword
             $data = [
                 Claim::ISSUED_AT => date('c'),
                 Claim::SUBJECT => $user->id,
+                Claim::JWT_ID => session_id(),
             ];
             $token = new JWT($data);
             $token->setKeys($this->keyContainer);
