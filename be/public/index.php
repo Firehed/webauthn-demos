@@ -20,6 +20,7 @@ $app->add($c->get(App\Middlewares\ErrorHandlingMiddleware::class));
 $app->add($c->get(App\Middlewares\CORSMiddleware::class));
 $app->add($c->get(App\Middlewares\AccessLogMiddleware::class));
 
+$app->post('/add-credential', [App\Api\AddCredential::class, 'handle']);
 $app->post('/register', [App\Api\Register::class, 'handle']);
 $app->post('/login-password', [App\Api\LoginPassword::class, 'handle']);
 $app->get('/get-challenge', [App\Api\GetChallenge::class, 'handle']);

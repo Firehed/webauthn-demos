@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     Psr\Log\LoggerInterface::class => fn () => new Firehed\SimpleLogger\Stdout(),
 
+    Firehed\WebAuthn\RelyingParty::class => fn ($c) => new Firehed\WebAuthn\RelyingParty($c->get('hostname')),
 
     App\Middlewares\AccessLogMiddleware::class,
     App\Middlewares\AuthenticatingMiddleware::class,

@@ -8,4 +8,6 @@ return [
     'environment' => env('ENVIRONMENT'),
 
     'isDevMode' => fn ($c) => $c->get('environment') === 'development',
+
+    'hostname' => env('HOSTNAME'),
 ];
