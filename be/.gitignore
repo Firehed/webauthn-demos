@@ -1,2 +1,5 @@
+/.env
+/.generated/
+/.phpunit.result.cache
 /db.sqlite3
 /vendor/

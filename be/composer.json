@@ -4,6 +4,7 @@
         "doctrine/migrations": "^3.5",
         "doctrine/orm": "^2.13",
         "firehed/container": "^0.5.2",
+        "firehed/jwt": "^3.2",
         "firehed/simplelogger": "^2.4",
         "firehed/webauthn": "dev-main",
         "ramsey/uuid": "^4.4",

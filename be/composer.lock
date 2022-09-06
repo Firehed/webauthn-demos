@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5544eb81ecf8a0b61f8dc429c141cdc",
+    "content-hash": "ec9d08a438d2b4e267e630b282268d5b",
     "packages": [
         {
             "name": "brick/math",
@@ -1275,6 +1275,122 @@
                 "source": "https://github.com/Firehed/container/tree/0.5.2"
             },
             "time": "2021-11-16T17:36:58+00:00"
+        },
+        {
+            "name": "firehed/jwt",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Firehed/jwt.git",
+                "reference": "67d7436239ae95911e90e029d7472ae05ea17559"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Firehed/jwt/zipball/67d7436239ae95911e90e029d7472ae05ea17559",
+                "reference": "67d7436239ae95911e90e029d7472ae05ea17559",
+                "shasum": ""
+            },
+            "require": {
+                "firehed/security": "^1.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.2",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpstan/phpstan-strict-rules": "^1.0",
+                "phpunit/phpunit": "^9.0",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Firehed\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Stern",
+                    "email": "eric@ericstern.com"
+                }
+            ],
+            "description": "JSON Web Token tools",
+            "support": {
+                "issues": "https://github.com/Firehed/jwt/issues",
+                "source": "https://github.com/Firehed/jwt/tree/3.2.0"
+            },
+            "time": "2022-01-26T22:55:57+00:00"
+        },
+        {
+            "name": "firehed/security",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Firehed/Security.git",
+                "reference": "426b32d04a44c6a7c32d29f469d232a469fd4417"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Firehed/Security/zipball/426b32d04a44c6a7c32d29f469d232a469fd4417",
+                "reference": "426b32d04a44c6a7c32d29f469d232a469fd4417",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.98",
+                "phpstan/phpstan-strict-rules": "^0.12.11",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "suggest": {
+                "paragonie/constant_time_encoding": "Contains a secure base32-encoder, useful for generating QRCodes for TOTP registration"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/HOTP.php",
+                    "src/TOTP.php"
+                ],
+                "psr-4": {
+                    "Firehed\\Security\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Stern",
+                    "email": "eric@ericstern.com"
+                }
+            ],
+            "description": "Security tools for PHP",
+            "keywords": [
+                "authenticator",
+                "authy",
+                "hidden",
+                "hotp",
+                "masked",
+                "password",
+                "rfc4226",
+                "rfc6238",
+                "secret",
+                "security",
+                "sensitive",
+                "string",
+                "totp"
+            ],
+            "support": {
+                "issues": "https://github.com/Firehed/Security/issues",
+                "source": "https://github.com/Firehed/Security/tree/1.1.0"
+            },
+            "time": "2021-09-10T21:41:20+00:00"
         },
         {
             "name": "firehed/simplelogger",
