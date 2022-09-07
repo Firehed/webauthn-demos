@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Api;
 
 use App\Entities\Credential;
+use App\Entities\Repository\CredentialRepository;
 use App\Entities\User;
 use App\Services\AccessTokenGenerator;
 use App\Services\ChallengeHandler;
@@ -26,6 +27,7 @@ class LoginWebAuthn
         private RelyingParty $rp,
         private ChallengeHandler $challengeHandler,
         private AccessTokenGenerator $tokenGenerator,
+        private CredentialRepository $cr,
     ) {
     }
 
@@ -40,22 +42,18 @@ class LoginWebAuthn
             return $response->withStatus(404);
         }
 
+        $parser = new ResponseParser();
+        $assertion = $parser->parseGetResponse($data['assertion']);
+
         $challenge = $this->challengeHandler->getActiveChallenge();
 
-        $creds = $this->em->getRepository(Credential::class)
-            ->findBy(['userId' => $user->id]);
-
-        $cc = new CredentialContainer(array_map(fn ($c) => $c->getCredential(), $creds));
-
-        $parser = new ResponseParser();
-        $getResponse = $parser->parseGetResponse($data['assertion']);
-
-        $foundCredential = $cc->findCredentialUsedByResponse($getResponse);
+        $cc = $this->cr->getCredentialContainerForUser($user);
+        $foundCredential = $cc->findCredentialUsedByResponse($assertion);
         if ($foundCredential === null) {
             return $response->withStatus(400);
         }
 
-        $updatedCredential = $getResponse->verify($challenge, $this->rp, $foundCredential);
+        $updatedCredential = $assertion->verify($challenge, $this->rp, $foundCredential);
 
         // FIXME UPSTREAM: this has HORRIBLE ergonomics
         $uc = $this->em->find(Credential::class, $updatedCredential->getStorageId());

@@ -15,6 +15,8 @@ return [
 
     App\Context::class,
 
+    App\Entities\Repository\CredentialRepository::class,
+
     App\Services\AccessTokenGenerator::class,
     App\Services\ChallengeHandler::class,
 ];
