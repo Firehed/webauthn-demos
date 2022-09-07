@@ -16,10 +16,13 @@ class CORSMiddleware implements MiddlewareInterface
     {
         if ($request->getMethod() === 'OPTIONS') {
             return (new Response(204))
+                ->withHeader('Access-control-allow-credentials', 'true')
                 ->withHeader('Access-control-allow-headers', 'Content-type, Authorization')
-                ->withHeader('Access-control-allow-origin', '*');
+
+                ->withHeader('Access-control-allow-origin', $request->getHeaderLine('origin'));
         }
         return $handler->handle($request)
-            ->withHeader('Access-control-allow-origin', '*');
+            ->withHeader('Access-control-allow-credentials', 'true')
+            ->withHeader('Access-control-allow-origin', $request->getHeaderLine('origin'));
     }
 }

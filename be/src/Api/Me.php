@@ -7,7 +7,6 @@ namespace App\Api;
 use App\Context;
 use App\Entities\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Firehed\WebAuthn\Challenge;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
