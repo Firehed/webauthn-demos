@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Api;
 
 use App\Context;
-use App\Entities\Repository\CredentialRepository;
+use App\Entities\Repository\{
+    CredentialRepository,
+    UserRepository,
+};
 use App\Entities\User;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -15,7 +17,7 @@ class GetCredentials
 {
     public function __construct(
         private Context $context,
-        private EntityManagerInterface $em,
+        private UserRepository $ur,
         private CredentialRepository $cr,
     ) {
     }
@@ -23,13 +25,8 @@ class GetCredentials
     public function handle(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $data = $request->getParsedBody();
-        $username = $data['username'];
 
-        $user = $this->em->getRepository(User::class)
-            ->findOneBy(['name' => $username]);
-        if (!$user) {
-            return $response->withStatus(404);
-        }
+        $user = $this->ur->getByName($data['username']);
 
         $cc = $this->cr->getCredentialContainerForUser($user);
 

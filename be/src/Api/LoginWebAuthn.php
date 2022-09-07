@@ -6,7 +6,7 @@ namespace App\Api;
 
 use App\Entities\Credential;
 use App\Entities\Repository\CredentialRepository;
-use App\Entities\User;
+use App\Entities\Repository\UserRepository;
 use App\Services\AccessTokenGenerator;
 use App\Services\ChallengeHandler;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,6 +23,7 @@ class LoginWebAuthn
 {
     public function __construct(
         private EntityManagerInterface $em,
+        private UserRepository $ur,
         private LoggerInterface $logger,
         private RelyingParty $rp,
         private ChallengeHandler $challengeHandler,
@@ -35,12 +36,7 @@ class LoginWebAuthn
     {
         $data = $request->getParsedBody();
 
-        $username = $data['username'];
-        $user = $this->em->getRepository(User::class)
-            ->findOneBy(['name' => $username]);
-        if (!$user) {
-            return $response->withStatus(404);
-        }
+        $user = $this->ur->getByName($data['username']);
 
         $parser = new ResponseParser();
         $assertion = $parser->parseGetResponse($data['assertion']);

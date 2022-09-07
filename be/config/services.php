@@ -16,6 +16,7 @@ return [
     App\Context::class,
 
     App\Entities\Repository\CredentialRepository::class,
+    App\Entities\Repository\UserRepository::class,
 
     App\Services\AccessTokenGenerator::class,
     App\Services\ChallengeHandler::class,

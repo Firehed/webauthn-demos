@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Api;
 
-use App\Entities\User;
+use App\Entities\Repository\UserRepository;
 use App\Services\AccessTokenGenerator;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
@@ -14,7 +13,7 @@ use Psr\Log\LoggerInterface;
 class LoginPassword
 {
     public function __construct(
-        private EntityManagerInterface $em,
+        private UserRepository $ur,
         private LoggerInterface $logger,
         private AccessTokenGenerator $tokenGenerator,
     ) {
@@ -24,11 +23,7 @@ class LoginPassword
     {
         $body = $request->getParsedBody();
 
-        $user = $this->em->getRepository(User::class)
-            ->findOneBy(['name' => $body['username']]);
-        if (!$user) {
-            return $response->withStatus(404);
-        }
+        $user = $this->ur->getByName($body['username']);
 
         if ($user->isPasswordCorrect($body['password'])) {
             $token = $this->tokenGenerator->generateToken($user, AccessTokenGenerator::METHOD_PASSWORD);
