@@ -14,4 +14,6 @@ return [
     App\Middlewares\JsonBodyParserMiddleware::class,
 
     App\Context::class,
+
+    App\Services\ChallengeHandler::class,
 ];

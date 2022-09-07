@@ -7,6 +7,7 @@ namespace App\Api;
 use App\Context;
 use App\Entities\Credential;
 use App\Entities\User;
+use App\Services\ChallengeHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Firehed\WebAuthn\{
     RelyingParty,
@@ -23,24 +24,18 @@ class AddCredential
         private RelyingParty $rp,
         private EntityManagerInterface $em,
         private LoggerInterface $logger,
+        private ChallengeHandler $challengeHandler,
     ) {
     }
 
     public function handle(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        session_start();
-
         $user = $this->em->find(User::class, $this->context->authenticatedUserId);
         if (!$user) {
             throw new \Exception('not auth');
         }
 
-        $challenge = $_SESSION['webauthn_challenge'] ?? null;
-        if (!$challenge) {
-            throw new \Exception('no challenge');
-        } elseif (($_SESSION['webauthn_challenge_exp'] ?? 0) < time()) {
-            throw new \Exception('challenge too old');
-        }
+        $challenge = $this->challengeHandler->getActiveChallenge();
 
         $params = $request->getParsedBody();
         $credentialData = $params['credential'];
