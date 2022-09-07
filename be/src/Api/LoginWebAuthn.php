@@ -6,9 +6,9 @@ namespace App\Api;
 
 use App\Entities\Credential;
 use App\Entities\User;
+use App\Services\AccessTokenGenerator;
 use App\Services\ChallengeHandler;
 use Doctrine\ORM\EntityManagerInterface;
-use Firehed\JWT\{Claim, JWT, KeyContainer};
 use Firehed\WebAuthn\{
     CredentialContainer,
     RelyingParty,
@@ -24,8 +24,8 @@ class LoginWebAuthn
         private EntityManagerInterface $em,
         private LoggerInterface $logger,
         private RelyingParty $rp,
-        private KeyContainer $keyContainer,
         private ChallengeHandler $challengeHandler,
+        private AccessTokenGenerator $tokenGenerator,
     ) {
     }
 
@@ -75,19 +75,12 @@ class LoginWebAuthn
 
         $this->logger->debug('build response');
 
-        $data = [
-            Claim::ISSUED_AT => date('c'),
-            Claim::SUBJECT => $user->id,
-            'amr' => ['webauthn'],
-            // see LoginPassword
-        ];
-        $token = new JWT($data);
-        $token->setKeys($this->keyContainer);
+        $token = $this->tokenGenerator->generateToken($user, AccessTokenGenerator::METHOD_WEBAUTHN);
 
         $response = $response->withStatus(200)
             ->withHeader('Content-type', 'application/json');
         $response->getBody()->write(json_encode([
-            'access_token' => $token->getEncoded(),
+            'access_token' => $token,
         ]));
 
         return $response;

@@ -45,7 +45,8 @@ class AuthenticatingMiddleware implements MiddlewareInterface
         $data = $token->getClaims();
         if (array_key_exists(JWT\Claim::SUBJECT, $data)) {
             $this->context->authenticatedUserId = $data[JWT\Claim::SUBJECT];
-            session_id($data[JWT\Claim::JWT_ID]);
+            // session_id($data[JWT\Claim::JWT_ID]);
+            // $data['nonce']
         } else {
             $this->logger->debug('Got a weird JWT');
         }

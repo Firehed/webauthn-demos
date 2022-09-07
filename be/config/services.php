@@ -15,5 +15,6 @@ return [
 
     App\Context::class,
 
+    App\Services\AccessTokenGenerator::class,
     App\Services\ChallengeHandler::class,
 ];
