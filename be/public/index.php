@@ -23,7 +23,9 @@ $app->add($c->get(App\Middlewares\AccessLogMiddleware::class));
 $app->post('/add-credential', [App\Api\AddCredential::class, 'handle']);
 $app->post('/register', [App\Api\Register::class, 'handle']);
 $app->post('/login-password', [App\Api\LoginPassword::class, 'handle']);
+$app->post('/login-webauthn', [App\Api\LoginWebAuthn::class, 'handle']);
 $app->get('/get-challenge', [App\Api\GetChallenge::class, 'handle']);
 $app->get('/me', [App\Api\Me::class, 'handle']);
+$app->post('/get-credentials', [App\Api\GetCredentials::class, 'handle']);
 
 $app->run();
