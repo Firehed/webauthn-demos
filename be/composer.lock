@@ -1461,12 +1461,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Firehed/webauthn-php.git",
-                "reference": "b93ecdd7b7c2e084007981310a0855da32db9764"
+                "reference": "33b6f222f603ff191fcf176d1d56b045dacc90a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Firehed/webauthn-php/zipball/b93ecdd7b7c2e084007981310a0855da32db9764",
-                "reference": "b93ecdd7b7c2e084007981310a0855da32db9764",
+                "url": "https://api.github.com/repos/Firehed/webauthn-php/zipball/33b6f222f603ff191fcf176d1d56b045dacc90a8",
+                "reference": "33b6f222f603ff191fcf176d1d56b045dacc90a8",
                 "shasum": ""
             },
             "require": {
@@ -1507,7 +1507,7 @@
                 "issues": "https://github.com/Firehed/webauthn-php/issues",
                 "source": "https://github.com/Firehed/webauthn-php/tree/main"
             },
-            "time": "2022-09-01T19:56:44+00:00"
+            "time": "2022-09-07T22:20:28+00:00"
         },
         {
             "name": "friendsofphp/proxy-manager-lts",

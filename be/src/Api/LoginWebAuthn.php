@@ -44,12 +44,8 @@ class LoginWebAuthn
         $challenge = $this->challengeHandler->getActiveChallenge();
 
         $cc = $this->cr->getCredentialContainerForUser($user);
-        $foundCredential = $cc->findCredentialUsedByResponse($assertion);
-        if ($foundCredential === null) {
-            return $response->withStatus(400);
-        }
 
-        $updatedCredential = $assertion->verify($challenge, $this->rp, $foundCredential);
+        $updatedCredential = $assertion->verify($challenge, $this->rp, $cc);
 
         // FIXME UPSTREAM: this has HORRIBLE ergonomics
         $uc = $this->em->find(Credential::class, $updatedCredential->getStorageId());
