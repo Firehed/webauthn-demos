@@ -28,8 +28,7 @@ class GetCredentials
         $user = $this->em->getRepository(User::class)
             ->findOneBy(['name' => $username]);
         if (!$user) {
-            $response = $response->withStatus(404);
-            return $response;
+            return $response->withStatus(404);
         }
 
         $creds = $this->em->getRepository(Credential::class)

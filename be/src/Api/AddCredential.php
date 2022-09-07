@@ -32,7 +32,7 @@ class AddCredential
     {
         $user = $this->em->find(User::class, $this->context->authenticatedUserId);
         if (!$user) {
-            throw new \Exception('not auth');
+            return $response->withStatus(403);
         }
 
         $challenge = $this->challengeHandler->getActiveChallenge();

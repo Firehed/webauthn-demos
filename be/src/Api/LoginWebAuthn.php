@@ -32,8 +32,8 @@ class LoginWebAuthn
     public function handle(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $data = $request->getParsedBody();
-        $username = $data['username'];
 
+        $username = $data['username'];
         $user = $this->em->getRepository(User::class)
             ->findOneBy(['name' => $username]);
         if (!$user) {
@@ -66,14 +66,8 @@ class LoginWebAuthn
             throw new \LogicException('somehow user id mismatches');
         }
 
-        $this->logger->debug(print_r($foundCredential, true));
-        $this->logger->debug(print_r($updatedCredential, true));
-
         $uc->updateCredential($updatedCredential);
-        $this->logger->debug('flushing');
         $this->em->flush();
-
-        $this->logger->debug('build response');
 
         $token = $this->tokenGenerator->generateToken($user, AccessTokenGenerator::METHOD_WEBAUTHN);
 

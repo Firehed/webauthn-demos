@@ -21,23 +21,21 @@ class Me
     public function handle(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $userId = $this->context->authenticatedUserId;
-        if ($userId) {
-            $user = $this->em->find(User::class, $userId);
-            if (!$userId) {
-            }
-
-            $response = $response->withStatus(200)
-                ->withHeader('Content-type', 'application/json');
-            $response->getBody()->write(json_encode([
-                'user' => [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                ],
-            ]));
-        } else {
-            $response = $response->withStatus(403);
+        if (!$userId) {
+            return $response->withStatus(403);
+        }
+        $user = $this->em->find(User::class, $userId);
+        if (!$user) {
         }
 
+        $response = $response->withStatus(200)
+            ->withHeader('Content-type', 'application/json');
+        $response->getBody()->write(json_encode([
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+            ],
+        ]));
         return $response;
     }
 }
