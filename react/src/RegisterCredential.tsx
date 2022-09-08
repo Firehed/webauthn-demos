@@ -4,7 +4,16 @@ import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core'
 
 import { API_HOST } from './env'
 
-const RegisterCredential: React.FC = () => {
+interface Params {
+  accessToken: string
+}
+const RegisterCredential: React.FC<Params> = ({ accessToken }) => {
+  const [nickname, setNickname] = React.useState('')
+
+  if (accessToken === '') {
+    return <p>Log in w/ password first</p>
+  }
+
   if (!window.PublicKeyCredential) {
     return <p>WebAuthn not supported by your browser</p>
   }
@@ -13,19 +22,20 @@ const RegisterCredential: React.FC = () => {
     e.preventDefault()
     console.debug('start webauth dance')
 
-    // FIXME Where is this from?
-    const username = 'Firehed'
-
-    const response = await fetch(API_HOST + '/readmeRegisterStep1.php', {
-      method: 'POST',
-      body: 'username=' + username,
+    const meResponse = await fetch(API_HOST + '/me', {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        Authorization: 'Bearer ' + accessToken,
       },
     })
-    const responseData = await response.json()
+    const meData = await meResponse.json()
+    const userInfo = meData.user
+
+    const challengeResponse = await fetch(API_HOST + '/get-challenge', {
+      credentials: 'include',
+      method: 'GET',
+    })
+    const responseData = await challengeResponse.json()
     const challenge = atob(responseData.challengeB64) // base64-decode
-    const userInfo = responseData.user
 
     const createOptions = {
       publicKey: {
@@ -34,7 +44,7 @@ const RegisterCredential: React.FC = () => {
         },
         user: {
           name: userInfo.name,
-          displayName: 'User Name',
+          displayName: userInfo.name,
           id: Uint8Array.from(userInfo.id, (c: string) => c.charCodeAt(0)),
         },
         challenge: Uint8Array.from(challenge, c => c.charCodeAt(0)),
@@ -64,9 +74,14 @@ const RegisterCredential: React.FC = () => {
     }
 
     // Send this to your endpoint - adjust to your needs.
-    const request = new Request(API_HOST + '/readmeRegisterStep3.php', {
-      body: JSON.stringify(dataForResponseParser),
+    const request = new Request(API_HOST + '/add-credential', {
+      body: JSON.stringify({
+        nickname,
+        credential: dataForResponseParser,
+      }),
+      credentials: 'include',// push cookies too for session
       headers: {
+        Authorization: 'Bearer ' + accessToken,
         'Content-type': 'application/json',
       },
       method: 'POST',
@@ -76,6 +91,10 @@ const RegisterCredential: React.FC = () => {
 
   return (
     <form onSubmit={startWebAuthnRegister}>
+      <FormGroup label="Nickname">
+        <InputGroup value={nickname} onChange={(e) => setNickname(e.target.value)} />
+      </FormGroup>
+
       <Button intent={Intent.PRIMARY} type="submit">Add passkey</Button>
     </form>
   )

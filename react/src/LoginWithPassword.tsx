@@ -4,7 +4,10 @@ import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core'
 
 import { API_HOST } from './env'
 
-const CreateAccount: React.FC = () => {
+interface Params {
+  setAccessToken: (token: string) => void,
+}
+const LoginWithPassword: React.FC<Params> = ({ setAccessToken }) => {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
 
@@ -12,13 +15,18 @@ const CreateAccount: React.FC = () => {
     e.preventDefault()
 
     const request = { username, password }
-    const response = await fetch(API_HOST + '/register', {
+    const response = await fetch(API_HOST + '/login-password', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(request),
     })
+
+    if (response.ok) {
+      const data = await response.json()
+      setAccessToken(data.access_token)
+    }
     console.debug(response)
   }
 
@@ -30,9 +38,9 @@ const CreateAccount: React.FC = () => {
       <FormGroup label="Password">
         <InputGroup value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
       </FormGroup>
-      <Button type="submit" intent={Intent.PRIMARY}>Create Account</Button>
+      <Button type="submit" intent={Intent.PRIMARY}>Log In</Button>
     </form>
   )
 }
 
-export default CreateAccount
+export default LoginWithPassword
