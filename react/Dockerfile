@@ -2,7 +2,7 @@ FROM node:16-alpine AS base
 WORKDIR /app
 
 FROM base AS deps
-COPY package.json yarn.lock .
+COPY package.json yarn.lock ./
 RUN yarn install --production
 
 FROM base AS build
