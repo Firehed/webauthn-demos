@@ -8,9 +8,6 @@ on:
 jobs:
   build-react:
     name: React UI
-    defaults:
-      run:
-        working-directory: react
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.build.outputs.server-tag }}
@@ -26,24 +23,17 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: debug
-        run: |
-          pwd
-          ls -la
-
       - name: Build images
         id: build
         uses: firehed/multistage-docker-build-action@v1
         with:
+          context: react
           repository: ghcr.io/firehed/webauthn-demos/react
           server-stage: server
           stages: deps, build
 
   build-api:
     name: API
-    defaults:
-      run:
-        working-directory: be
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.build.outputs.server-tag }}
@@ -59,15 +49,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: debug
-        run: |
-          pwd
-          ls -la
-
       - name: Build images
         id: build
         uses: firehed/multistage-docker-build-action@v1
         with:
+          context: be
           repository: ghcr.io/firehed/webauthn-demos/api
           stages: deps
           server-stage: build
