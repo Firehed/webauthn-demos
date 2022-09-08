@@ -26,6 +26,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: debug
+        run: |
+          pwd
+          ls -la
+
       - name: Build images
         id: build
         uses: firehed/multistage-docker-build-action@v1
@@ -53,6 +58,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: debug
+        run: |
+          pwd
+          ls -la
 
       - name: Build images
         id: build
