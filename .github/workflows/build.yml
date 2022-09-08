@@ -1,4 +1,4 @@
-name: BuildExamples
+name: Build Examples
 
 on:
   push:
@@ -7,7 +7,10 @@ on:
 
 jobs:
   build-react:
-    name: Build React UI
+    name: React UI
+    defaults:
+      run:
+        working-directory: react
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.build.outputs.server-tag }}
@@ -25,15 +28,17 @@ jobs:
 
       - name: Build images
         id: build
-        working-directory: react
         uses: firehed/multistage-docker-build-action@v1
         with:
           repository: ghcr.io/firehed/webauthn-demos/react
           server-stage: server
           stages: deps, build
 
-  build-fe:
-    name: Build
+  build-api:
+    name: API
+    defaults:
+      run:
+        working-directory: be
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.build.outputs.server-tag }}
@@ -51,7 +56,6 @@ jobs:
 
       - name: Build images
         id: build
-        working-directory: be
         uses: firehed/multistage-docker-build-action@v1
         with:
           repository: ghcr.io/firehed/webauthn-demos/api
