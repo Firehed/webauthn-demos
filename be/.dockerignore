@@ -1,0 +1,10 @@
+/.env
+/.generated/
+/.phpunit.result.cache
+/db.sqlite3
+/vendor/
+
+/Dockerfile
+/.dockerignore
+/.gitignore
+# vim: ft=gitignore
