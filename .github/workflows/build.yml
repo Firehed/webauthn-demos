@@ -56,4 +56,4 @@ jobs:
           context: be
           repository: ghcr.io/firehed/webauthn-demos/api
           stages: deps
-          server-stage: build
+          server-stage: server
