@@ -1,0 +1,61 @@
+name: BuildExamples
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-react:
+    name: Build React UI
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.build.outputs.server-tag }}
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Log in to docker
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build images
+        id: build
+        run:
+          working-directory: react
+        uses: firehed/multistage-docker-build-action@v1
+        with:
+          repository: ghcr.io/firehed/webauthn-demos/react
+          server-stage: server
+          stages: deps, build
+
+  build-fe:
+    name: Build
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.build.outputs.server-tag }}
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Log in to docker
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build images
+        id: build
+        run:
+          working-directory: react
+        uses: firehed/multistage-docker-build-action@v1
+        with:
+          repository: ghcr.io/firehed/webauthn-demos/api
+          stages: deps
+          server-stage: build
