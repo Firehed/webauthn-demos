@@ -6,6 +6,7 @@ import CreateAccount from './CreateAccount'
 import DebugAccessToken from './DebugAccessToken'
 import LoginWithPassword from './LoginWithPassword'
 import Logout from './Logout'
+import ManageCredentials from './ManageCredentials'
 import RegisterCredential from './RegisterCredential'
 import LoginWithWebAuthn from './LoginWithWebAuthn'
 
@@ -24,6 +25,9 @@ function App() {
       </Card>
       <Card>
         <LoginWithWebAuthn setAccessToken={setAccessToken} />
+      </Card>
+      <Card>
+        <ManageCredentials accessToken={accessToken} />
       </Card>
       <Card>
         <Logout accessToken={accessToken} setAccessToken={setAccessToken} />

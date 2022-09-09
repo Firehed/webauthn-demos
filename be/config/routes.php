@@ -7,5 +7,6 @@ return [
     App\Api\LoginPassword::class,
     App\Api\LoginWebAuthn::class,
     App\Api\Me::class,
+    App\Api\MyCredentials::class,
     App\Api\Register::class,
 ];
