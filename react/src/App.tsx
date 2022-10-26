@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card } from '@blueprintjs/core'
+import { Card, Tab, Tabs, TabId } from '@blueprintjs/core'
 
 import CreateAccount from './CreateAccount'
 import DebugAccessToken from './DebugAccessToken'
@@ -10,29 +10,37 @@ import ManageCredentials from './ManageCredentials'
 import RegisterCredential from './RegisterCredential'
 import LoginWithWebAuthn from './LoginWithWebAuthn'
 
+enum TabIds {
+  CreateAccount,
+  LoginWithPassword,
+  LoginWithWebAuthn,
+  RegisterCredential,
+  ManageCredentials,
+}
+
 function App() {
   const [accessToken, setAccessToken] = React.useState('')
+  const [selectedTabId, setSelectedTabId] = React.useState<TabId>(TabIds.CreateAccount)
+
   return (
     <div className="App">
       <Card>
-        <CreateAccount />
+        <Tabs
+          onChange={setSelectedTabId}
+          selectedTabId={selectedTabId}
+          vertical
+        >
+          <Tab title="Create Account" id={TabIds.CreateAccount} panel={<CreateAccount />} />
+          <Tab title="Login w/ Password" id={TabIds.LoginWithPassword} panel={<LoginWithPassword setAccessToken={setAccessToken} />} />
+          <Tab title="Add WebAuthn Credential" id={TabIds.RegisterCredential} panel={<RegisterCredential accessToken={accessToken} />} />
+          <Tab title="Login w/ WebAuthn" id={TabIds.LoginWithWebAuthn} panel={<LoginWithWebAuthn setAccessToken={setAccessToken} />} />
+          <Tab title="Manage WebAuthn Credentials" id={TabIds.ManageCredentials} panel={<ManageCredentials accessToken={accessToken} />} />
+          <Logout accessToken={accessToken} setAccessToken={setAccessToken} />
+        </Tabs>
       </Card>
       <Card>
-        <LoginWithPassword setAccessToken={setAccessToken} />
+        <DebugAccessToken token={accessToken} />
       </Card>
-      <Card>
-        <RegisterCredential accessToken={accessToken} />
-      </Card>
-      <Card>
-        <LoginWithWebAuthn setAccessToken={setAccessToken} />
-      </Card>
-      <Card>
-        <ManageCredentials accessToken={accessToken} />
-      </Card>
-      <Card>
-        <Logout accessToken={accessToken} setAccessToken={setAccessToken} />
-      </Card>
-      <DebugAccessToken token={accessToken} />
     </div>
   );
 }
