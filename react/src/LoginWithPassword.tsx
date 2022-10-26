@@ -28,6 +28,8 @@ const LoginWithPassword: React.FC<Params> = ({ setAccessToken }) => {
       setAccessToken(data.access_token)
     }
     console.debug(response)
+    setUsername('')
+    setPassword('')
   }
 
   return (
