@@ -2,12 +2,12 @@ import React from 'react'
 
 import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core'
 
-import { API_HOST } from './env'
+import { API_HOST } from '../env'
 
 interface Params {
   setAccessToken: (token: string) => void,
 }
-const LoginWithPassword: React.FC<Params> = ({ setAccessToken }) => {
+export const LoginWithPassword: React.FC<Params> = ({ setAccessToken }) => {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
 
@@ -53,5 +53,3 @@ const LoginWithPassword: React.FC<Params> = ({ setAccessToken }) => {
     </form>
   )
 }
-
-export default LoginWithPassword
