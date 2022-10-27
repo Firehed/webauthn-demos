@@ -35,10 +35,19 @@ const LoginWithPassword: React.FC<Params> = ({ setAccessToken }) => {
   return (
     <form onSubmit={register}>
       <FormGroup label="Username">
-        <InputGroup value={username} onChange={(e) => setUsername(e.target.value)} />
+        <InputGroup
+          autoComplete="username webauthn"
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
+        />
       </FormGroup>
       <FormGroup label="Password">
-        <InputGroup value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
+        <InputGroup
+          autoComplete="password webauthn"
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          value={password}
+        />
       </FormGroup>
       <Button type="submit" intent={Intent.PRIMARY}>Log In</Button>
     </form>
