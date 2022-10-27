@@ -1,5 +1,7 @@
 import { API_HOST } from '../env'
 
+import { getChallenge } from './'
+
 const registerCredential = async (accessToken: string, nickname: string) => {
 
   console.debug('start webauth dance')
@@ -12,12 +14,7 @@ const registerCredential = async (accessToken: string, nickname: string) => {
   const meData = await meResponse.json()
   const userInfo = meData.user
 
-  const challengeResponse = await fetch(API_HOST + '/get-challenge', {
-    credentials: 'include',
-    method: 'GET',
-  })
-  const responseData = await challengeResponse.json()
-  const challenge = atob(responseData.challengeB64) // base64-decode
+  const challenge = await getChallenge()
 
   const createOptions = {
     publicKey: {
@@ -29,7 +26,7 @@ const registerCredential = async (accessToken: string, nickname: string) => {
         displayName: userInfo.name,
         id: Uint8Array.from(userInfo.id, (c: string) => c.charCodeAt(0)),
       },
-      challenge: Uint8Array.from(challenge, c => c.charCodeAt(0)),
+      challenge,
       pubKeyCredParams: [
         {
           alg: -7, // ES256

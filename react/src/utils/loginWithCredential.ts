@@ -1,12 +1,11 @@
 import { API_HOST } from '../env'
 
+import { getChallenge } from './'
+
 const loginWithCredential = async (username: string) => {
-  const challengeResponse = await fetch(API_HOST + '/get-challenge', {
-    method: 'GET',
-    credentials: 'include',
-  })
-  const challengeResponseData = await challengeResponse.json()
-  const challenge = atob(challengeResponseData.challengeB64) // base64-decode
+
+
+  const challenge = await getChallenge()
 
   const credentialsResponse = await fetch(API_HOST + '/get-credentials', {
     method: 'POST',
@@ -23,9 +22,9 @@ const loginWithCredential = async (username: string) => {
   // })
 
   // Format for WebAuthn API
-  const getOptions = {
+  const getOptions: CredentialRequestOptions = {
     publicKey: {
-      challenge: Uint8Array.from(challenge, c => c.charCodeAt(0)),
+      challenge,
       // allowCredentials: credentialData.credentialIds.map((id: string) => ({
       //   id: Uint8Array.from(atob(id), c => c.charCodeAt(0)),
       //   type: 'public-key',
