@@ -2,9 +2,9 @@ import React from 'react'
 
 import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core'
 
-import { API_HOST } from './env'
+import { API_HOST } from '../env'
 
-const CreateAccount: React.FC = () => {
+export const CreateAccount: React.FC = () => {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
 
@@ -34,5 +34,3 @@ const CreateAccount: React.FC = () => {
     </form>
   )
 }
-
-export default CreateAccount
