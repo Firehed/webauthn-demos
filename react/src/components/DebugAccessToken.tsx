@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Card, H3, H4 } from '@blueprintjs/core'
 
-const DebugAccessToken: React.FC<{ token: string }> = ({ token }) => {
+export const DebugAccessToken: React.FC<{ token: string }> = ({ token }) => {
   if (token === '') {
     return <>No access token</>
   }
@@ -21,5 +21,3 @@ const DebugAccessToken: React.FC<{ token: string }> = ({ token }) => {
       </Card>
   )
 }
-
-export default DebugAccessToken

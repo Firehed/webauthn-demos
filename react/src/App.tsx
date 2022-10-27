@@ -3,12 +3,15 @@ import React from 'react';
 import { Card, Tab, Tabs, TabId } from '@blueprintjs/core'
 
 import CreateAccount from './CreateAccount'
-import DebugAccessToken from './DebugAccessToken'
 import LoginWithPassword from './LoginWithPassword'
-import Logout from './Logout'
 import ManageCredentials from './ManageCredentials'
 import RegisterCredential from './RegisterCredential'
 import LoginWithWebAuthn from './LoginWithWebAuthn'
+
+import {
+  DebugAccessToken,
+  Logout,
+} from './components'
 
 enum TabIds {
   CreateAccount,

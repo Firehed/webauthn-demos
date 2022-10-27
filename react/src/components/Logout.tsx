@@ -1,14 +1,12 @@
 import React from 'react'
 
-import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core'
-
-import { API_HOST } from './env'
+import { Button, Intent } from '@blueprintjs/core'
 
 interface Params {
   accessToken: string
   setAccessToken: (token: string) => void
 }
-const Logout: React.FC<Params> = ({ accessToken, setAccessToken }) => {
+export const Logout: React.FC<Params> = ({ accessToken, setAccessToken }) => {
   if (accessToken === '') {
     return null
   }
@@ -28,5 +26,3 @@ const Logout: React.FC<Params> = ({ accessToken, setAccessToken }) => {
   )
 
 }
-
-export default Logout
