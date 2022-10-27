@@ -2,14 +2,14 @@ import React from 'react'
 
 import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core'
 
-import registerCredential from './utils/registerCredential'
+import registerCredential from '../utils/registerCredential'
 
-import { WebAuthnUnsupported } from './components'
+import { WebAuthnUnsupported } from '../components'
 
 interface Params {
   accessToken: string
 }
-const RegisterCredential: React.FC<Params> = ({ accessToken }) => {
+export const RegisterCredential: React.FC<Params> = ({ accessToken }) => {
   const [nickname, setNickname] = React.useState('')
 
   if (accessToken === '') {
@@ -38,5 +38,3 @@ const RegisterCredential: React.FC<Params> = ({ accessToken }) => {
   )
 
 }
-
-export default RegisterCredential
