@@ -4,6 +4,8 @@ import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core'
 
 import registerCredential from './utils/registerCredential'
 
+import { WebAuthnUnsupported } from './components'
+
 interface Params {
   accessToken: string
 }
@@ -15,7 +17,7 @@ const RegisterCredential: React.FC<Params> = ({ accessToken }) => {
   }
 
   if (!window.PublicKeyCredential) {
-    return <p>WebAuthn not supported by your browser</p>
+    return <WebAuthnUnsupported />
   }
 
   const startWebAuthnRegister = async (e: React.FormEvent) => {
