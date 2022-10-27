@@ -2,12 +2,12 @@ import React from 'react'
 
 import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core'
 
-import loginWithCredential from './utils/loginWithCredential'
+import loginWithCredential from '../utils/loginWithCredential'
 
 interface Params {
   setAccessToken: (token: string) => void,
 }
-const LoginWithWebAuthn: React.FC<Params> = ({ setAccessToken }) => {
+export const LoginWithWebAuthn: React.FC<Params> = ({ setAccessToken }) => {
   const [username, setUsername] = React.useState('')
 
   if (!window.PublicKeyCredential) {
@@ -48,5 +48,3 @@ const LoginWithWebAuthn: React.FC<Params> = ({ setAccessToken }) => {
     </form>
   )
 }
-
-export default LoginWithWebAuthn

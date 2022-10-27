@@ -1,3 +1,5 @@
 export { CreateAccount } from './CreateAccount'
 export { LoginWithPassword } from './LoginWithPassword'
+export { LoginWithWebAuthn } from './LoginWithWebAuthn'
+export { ManageCredentials } from './ManageCredentials'
 export { RegisterCredential } from './RegisterCredential'

@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { API_HOST } from './env'
+import { API_HOST } from '../env'
 
 interface Params {
   accessToken: string
 }
-const ManageCredentials: React.FC<Params> = ({ accessToken }) => {
+export const ManageCredentials: React.FC<Params> = ({ accessToken }) => {
   const [creds, setCreds] = React.useState<{id: string, nickname: string}[]>([])
   React.useEffect(() => {
     if (accessToken === '') {
@@ -39,5 +39,3 @@ const ManageCredentials: React.FC<Params> = ({ accessToken }) => {
     </ul>
   )
 }
-
-export default ManageCredentials

@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Card, Tab, Tabs, TabId } from '@blueprintjs/core'
 
-import ManageCredentials from './ManageCredentials'
-import LoginWithWebAuthn from './LoginWithWebAuthn'
 import {
   CreateAccount,
   LoginWithPassword,
+  LoginWithWebAuthn,
+  ManageCredentials,
   RegisterCredential,
 } from './panels'
 
