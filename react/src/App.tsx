@@ -35,12 +35,35 @@ function App() {
           selectedTabId={selectedTabId}
           vertical
         >
-          <Tab title="Create Account" id={TabIds.CreateAccount} panel={<CreateAccount />} />
-          <Tab title="Login w/ Password" id={TabIds.LoginWithPassword} panel={<LoginWithPassword setAccessToken={setAccessToken} />} />
-          <Tab title="Add WebAuthn Credential" id={TabIds.RegisterCredential} panel={<RegisterCredential accessToken={accessToken} />} />
-          <Tab title="Login w/ WebAuthn" id={TabIds.LoginWithWebAuthn} panel={<LoginWithWebAuthn setAccessToken={setAccessToken} />} />
-          <Tab title="Manage WebAuthn Credentials" id={TabIds.ManageCredentials} panel={<ManageCredentials accessToken={accessToken} />} />
-          <Logout accessToken={accessToken} setAccessToken={setAccessToken} />
+          <Tab
+            id={TabIds.CreateAccount}
+            panel={<CreateAccount />}
+            title="Create Account w/ Password"
+          />
+          <Tab
+            id={TabIds.LoginWithPassword}
+            panel={<LoginWithPassword setAccessToken={setAccessToken} />}
+            title="Login w/ Password"
+          />
+          <Tab
+            id={TabIds.RegisterCredential}
+            panel={<RegisterCredential accessToken={accessToken} />}
+            title="Add WebAuthn Credential"
+          />
+          <Tab
+            id={TabIds.LoginWithWebAuthn}
+            panel={<LoginWithWebAuthn setAccessToken={setAccessToken} />}
+            title="Login w/ WebAuthn"
+          />
+          <Tab
+            id={TabIds.ManageCredentials}
+            panel={<ManageCredentials accessToken={accessToken} />}
+            title="Manage WebAuthn Credentials"
+          />
+          <Logout
+            accessToken={accessToken}
+            setAccessToken={setAccessToken}
+          />
         </Tabs>
       </Card>
       <Card>
