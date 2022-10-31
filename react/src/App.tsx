@@ -37,7 +37,7 @@ function App() {
         >
           <Tab
             id={TabIds.CreateAccount}
-            panel={<CreateAccount />}
+            panel={<CreateAccount setAccessToken={setAccessToken} />}
             title="Create Account w/ Password"
           />
           <Tab

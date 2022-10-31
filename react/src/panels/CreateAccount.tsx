@@ -4,7 +4,10 @@ import { Button, FormGroup, InputGroup, Intent } from '@blueprintjs/core'
 
 import { API_HOST } from '../env'
 
-export const CreateAccount: React.FC = () => {
+interface Params {
+  setAccessToken: (token: string) => void,
+}
+export const CreateAccount: React.FC<Params> = ({ setAccessToken }) => {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
 
@@ -20,6 +23,11 @@ export const CreateAccount: React.FC = () => {
       body: JSON.stringify(request),
     })
     console.debug(response)
+
+    if (response.ok) {
+      const data = await response.json()
+      setAccessToken(data.access_token)
+    }
   }
 
   return (
