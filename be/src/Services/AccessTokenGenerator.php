@@ -12,6 +12,8 @@ class AccessTokenGenerator
     public const METHOD_PASSWORD = 'password';
     public const METHOD_WEBAUTHN = 'webauthn';
 
+    public const METHOD_REGISTRATION = 'registration';
+
     public function __construct(
         private KeyContainer $keyContainer,
     ) {

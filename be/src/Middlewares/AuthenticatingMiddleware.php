@@ -44,6 +44,7 @@ class AuthenticatingMiddleware implements MiddlewareInterface
         $token = JWT\JWT::fromEncoded($jwt, $this->keyContainer);
         $data = $token->getClaims();
         if (array_key_exists(JWT\Claim::SUBJECT, $data)) {
+            $this->logger->debug('AuthN MW data: {data}', ['data' => json_encode($data)]);
             $this->context->authenticatedUserId = $data[JWT\Claim::SUBJECT];
             // session_id($data[JWT\Claim::JWT_ID]);
             // $data['nonce']
