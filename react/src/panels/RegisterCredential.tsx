@@ -29,7 +29,7 @@ export const RegisterCredential: React.FC<Params> = ({ accessToken }) => {
 
   return (
     <form onSubmit={startWebAuthnRegister}>
-      <FormGroup label="Nickname">
+      <FormGroup label="Nickname for Credential">
         <InputGroup value={nickname} onChange={(e) => setNickname(e.target.value)} />
       </FormGroup>
 

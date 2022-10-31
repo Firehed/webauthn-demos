@@ -4,6 +4,7 @@ import { Card, Tab, Tabs, TabId } from '@blueprintjs/core'
 
 import {
   CreateAccount,
+  CreateAccountWithWebAuthn,
   LoginWithPassword,
   LoginWithWebAuthn,
   ManageCredentials,
@@ -17,6 +18,7 @@ import {
 
 enum TabIds {
   CreateAccount,
+  CreateAccountWithWebAuthn,
   LoginWithPassword,
   LoginWithWebAuthn,
   RegisterCredential,
@@ -44,6 +46,11 @@ function App() {
             id={TabIds.LoginWithPassword}
             panel={<LoginWithPassword setAccessToken={setAccessToken} />}
             title="Login w/ Password"
+          />
+          <Tab
+            id={TabIds.CreateAccountWithWebAuthn}
+            panel={<CreateAccountWithWebAuthn setAccessToken={setAccessToken} />}
+            title="Create Account w/ WebAuthn"
           />
           <Tab
             id={TabIds.RegisterCredential}
