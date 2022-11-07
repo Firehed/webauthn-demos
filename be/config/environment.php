@@ -9,5 +9,5 @@ return [
 
     'isDevMode' => fn ($c) => $c->get('environment') === 'development',
 
-    'hostname' => env('HOSTNAME'),
+    'relying_party' => env('RELYING_PARTY'),
 ];
