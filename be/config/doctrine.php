@@ -52,7 +52,7 @@ return [
 
         // https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
         $connection = [
-            'driver' => 'pdo_sqlIte',
+            'driver' => 'pdo_sqlite',
             // This is set automatically from above, but provides a useful starting
             // reference point for debugging
             'driverClass' => \Doctrine\DBAL\Driver\PDO\SQLite\Driver::class,
