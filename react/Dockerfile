@@ -10,7 +10,9 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN yarn build
 
-FROM base AS server
-RUN yarn global add serve
-COPY --from=build /app/build ./
-CMD serve -s build
+FROM nginx:1.23.2-alpine AS server
+WORKDIR /usr/share/nginx/html
+# default.conf
+COPY default.conf.template /etc/nginx/templates/default.conf.template
+COPY 40-index-envsubst.sh /docker-entrypoint.d/
+COPY --from=build /app/build .
