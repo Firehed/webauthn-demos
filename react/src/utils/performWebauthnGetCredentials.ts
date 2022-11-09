@@ -13,7 +13,7 @@ export const performWebauthnGetCredentials = async (getOptions: CredentialReques
     rawId: Array.from(new Uint8Array(credential.rawId)),
     type: credential.type,
     authenticatorData: Array.from(new Uint8Array(credentialResponse.authenticatorData)),
-    clientDataJSON: Array.from(new Uint8Array(credential.response.clientDataJSON)),
+    clientDataJSON: Array.from(new Uint8Array(credentialResponse.clientDataJSON)),
     signature: Array.from(new Uint8Array(credentialResponse.signature)),
     userHandle: Array.from(new Uint8Array(credentialResponse.userHandle!)),
   }

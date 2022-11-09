@@ -16,19 +16,14 @@ const loginWithCredential = async (username: string) => {
   })
   const credentialData = await credentialsResponse.json()
 
-  // const request = await fetch(API_HOST + '/login-webauthn', {
-  //   method: 'POST',
-  //   credentials: 'include',
-  // })
-
   // Format for WebAuthn API
   const getOptions: CredentialRequestOptions = {
     publicKey: {
       challenge,
-      // allowCredentials: credentialData.credentialIds.map((id: string) => ({
-      //   id: Uint8Array.from(atob(id), c => c.charCodeAt(0)),
-      //   type: 'public-key',
-      // }))
+      allowCredentials: credentialData.credentialIds.map((id: string) => ({
+        id: Uint8Array.from(atob(id), c => c.charCodeAt(0)),
+        type: 'public-key',
+      }))
     },
   }
 
